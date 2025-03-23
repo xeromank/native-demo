@@ -1,0 +1,12 @@
+{
+  "resources": {
+    "includes": [
+      {"pattern": "application.properties"},
+      {"pattern": "application.yml"},
+      {"pattern": "META-INF/spring.factories"},
+      {"pattern": "static/.*"},
+      {"pattern": "templates/.*"},
+      {"pattern": "META-INF/resources/.*"}
+    ]
+  }
+}

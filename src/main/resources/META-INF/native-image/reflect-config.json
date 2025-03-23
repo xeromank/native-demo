@@ -1,0 +1,41 @@
+[
+  {
+    "name": "kotlin.reflect.jvm.internal.ReflectionFactoryImpl",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "kotlin.KotlinVersion",
+    "allPublicMethods": true,
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "kotlin.reflect.jvm.internal.impl.resolve.scopes.DescriptorKindFilter",
+    "allPublicMethods": true,
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.springframework.web.filter.FormContentFilter",
+    "allPublicMethods": true,
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter",
+    "allPublicMethods": true,
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.springframework.http.converter.json.Jackson2ObjectMapperBuilder",
+    "allPublicMethods": true,
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  }
+]
