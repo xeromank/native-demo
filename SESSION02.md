@@ -17,7 +17,6 @@
 3. **AOT 컴파일**: 사용되는 모든 코드를 미리 컴파일
 4. **이미지 생성**: 컴파일된 코드와 필요한 리소스를 하나의 실행 파일로 패키징
 
-![네이티브 이미지 빌드 과정](https://i.imgur.com/ZvJnGbL.png)
 
 ### Closed World Assumption
 
@@ -655,15 +654,146 @@ graalvmNative {
    - 필요한 리소스만 포함
    - 빌드 시점/런타임 초기화 설정
 
-3. 다음 성능 지표를 측정하고 비교하세요:
-   - 시작 시간: JVM vs 네이티브
-   - 메모리 사용량: JVM vs 네이티브
-   - 첫 응답 시간: JVM vs 네이티브
-   - 처리량(초당 요청 수): JVM vs 네이티브
+   3. 다음 성능 지표를 측정하고 비교하세요:
+      - 시작 시간: JVM vs 네이티브
+        - 약 25배 (process running for 2.449) vs (process running for 0.094)
+      - 메모리 사용량: JVM vs 네이티브
+        - 약 10배
+        - JVM 버전: 217,808 KB (약 212 MB)
+        - 네이티브 버전: 77,376 KB (약 75 MB)
+      - 첫 응답 시간: JVM vs 네이티브
+        - 네이티브 7배 빠름
+        - time curl -v http://localhost:8080/api/users
+        - JVM 결과
+          - 0.168
+          - 0.024
+          - 0.025
+          - ...
+        - Native 결과
+          - 0.023
+          - 0.017
+          - 0.019
+          - ...
+      - 처리량(초당 요청 수): JVM vs 네이티브
+        - 엄청난 차이인데?
+      ```shell
+      ab -n 10000 -c 100 http://localhost:8080/api/users
+      This is ApacheBench, Version 2.3 <$Revision: 1903618 $>
+      Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+      Licensed to The Apache Software Foundation, http://www.apache.org/
+   
+      Benchmarking localhost (be patient)
+      Completed 1000 requests
+      Completed 2000 requests
+      Completed 3000 requests
+      Completed 4000 requests
+      Completed 5000 requests
+      Completed 6000 requests
+      Completed 7000 requests
+      Completed 8000 requests
+      Completed 9000 requests
+      Completed 10000 requests
+      Finished 10000 requests
+   
+   
+      Server Software:        
+      Server Hostname:        localhost
+      Server Port:            8080
+   
+      Document Path:          /api/users
+      Document Length:        153 bytes
+   
+      Concurrency Level:      100
+      Time taken for tests:   0.571 seconds
+      Complete requests:      10000
+      Failed requests:        0
+      Total transferred:      2810000 bytes
+      HTML transferred:       1530000 bytes
+      Requests per second:    17527.96 [#/sec] (mean)
+      Time per request:       5.705 [ms] (mean)
+      Time per request:       0.057 [ms] (mean, across all concurrent requests)
+      Transfer rate:          4809.92 [Kbytes/sec] received
+   
+      Connection Times (ms)
+                    min  mean[+/-sd] median   max
+      Connect:        0    3   0.3      3       5
+      Processing:     2    3   1.7      3      21
+      Waiting:        1    3   1.7      3      20
+      Total:          3    6   1.7      5      23
+   
+      Percentage of the requests served within a certain time (ms)
+        50%      5
+        66%      6
+        75%      6
+        80%      6
+        90%      6
+        95%      6
+        98%      8
+        99%     20
+       100%     23 (longest request)
+   
+      ab -n 10000 -c 100 http://localhost:8081/api/users
+   
+      This is ApacheBench, Version 2.3 <$Revision: 1903618 $>
+      Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+      Licensed to The Apache Software Foundation, http://www.apache.org/
+   
+      Benchmarking localhost (be patient)
+      Completed 1000 requests
+      Completed 2000 requests
+      Completed 3000 requests
+      Completed 4000 requests
+      Completed 5000 requests
+      Completed 6000 requests
+      Completed 7000 requests
+      Completed 8000 requests
+      Completed 9000 requests
+      Completed 10000 requests
+      Finished 10000 requests
+   
+   
+      Server Software:        
+      Server Hostname:        localhost
+      Server Port:            8081
+   
+      Document Path:          /api/users
+      Document Length:        153 bytes
+   
+      Concurrency Level:      100
+      Time taken for tests:   28.424 seconds
+      Complete requests:      10000
+      Failed requests:        0
+      Total transferred:      2810000 bytes
+      HTML transferred:       1530000 bytes
+      Requests per second:    351.82 [#/sec] (mean)
+      Time per request:       284.238 [ms] (mean)
+      Time per request:       2.842 [ms] (mean, across all concurrent requests)
+      Transfer rate:          96.54 [Kbytes/sec] received
+   
+      Connection Times (ms)
+                    min  mean[+/-sd] median   max
+      Connect:        0    0   0.5      0      11
+      Processing:     9  284 304.2    207    2233
+      Waiting:        6  284 304.1    207    2231
+      Total:          9  284 304.2    207    2233
+   
+      Percentage of the requests served within a certain time (ms)
+        50%    207
+        66%    354
+        75%    437
+        80%    491
+        90%    651
+        95%    824
+        98%   1103
+        99%   1565
+       100%   2233 (longest request)
+          
+      ```
 
 4. 트레이스 에이전트를 사용하여 리플렉션, 리소스, 프록시 설정 파일을 생성해보세요.
-
+  -  해봄
 5. 네이티브 이미지 빌드 과정에서 발생하는 문제를 해결하는 방법을 정리하세요.
+  - 옵션 구버전 네이밍 문제 말고는 없었음, 디버그 제외 라던가..
 
 ## 12. 참고 자료
 

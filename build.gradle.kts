@@ -48,11 +48,21 @@ graalvmNative {
             mainClass.set("com.example.nativedemo.NativeDemoApplicationKt")
             debug.set(true)
             verbose.set(true)
+            fallback.set(false)
+
+            buildArgs.add("-H:+ReportExceptionStackTraces")
+            buildArgs.add("--initialize-at-build-time=org.slf4j,ch.qos.logback")
+            buildArgs.add("-H:+PrintClassInitialization")
+
 //            buildArgs.add("-H:ResourceConfigurationFiles=META-INF/native-image/resource-config.json")
 //            buildArgs.add("-H:ReflectionConfigurationFiles=META-INF/native-image/reflect-config.json")
 
-            buildArgs.add("--no-fallback")
-            buildArgs.add("-H:+ReportExceptionStackTraces")
+//            buildArgs.add("--no-fallback")
+//            buildArgs.add("--initialize-at-build-time=org.slf4j,ch.qos.logback")
+//            buildArgs.add("-H:+ReportExceptionStackTraces")
+//            buildArgs.add("-J-Djava.util.concurrent.ForkJoinPool.common.parallelism=6")
+//            buildArgs.add("-H:-IncludeDebugInfo")
+//            buildArgs.add("-H:+UseSerialGC")
         }
     }
 }
