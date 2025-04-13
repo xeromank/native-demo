@@ -54,7 +54,7 @@ class DataSourceConfig {
     @Bean
     fun dataSource(
         @Value("\${spring.datasource.url}
-
+```
 ## 8. 네이티브 이미지 빌드 및 배포
 
 ### 네이티브 이미지 빌드 설정 (JPA 애플리케이션)
