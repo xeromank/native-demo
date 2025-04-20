@@ -261,8 +261,9 @@ class JpaHintsConfig {
 
 1. **Eager vs Lazy 로딩**:
    - Eager 로딩은 네이티브 이미지에서 문제가 적음
-   - Lazy 로딩 사용 시 프록시 설정 필요
+   - **Lazy 로딩 사용 시 프록시 설정 필요**
    - `@Transactional` 범위에서 Lazy 로딩 처리 권장
+     - `이건 어디서나 마찬가지 아닌가?`
 
 2. **프로젝션과 DTO**:
    - 인터페이스 기반 프로젝션 사용 시 힌트 등록 필요
@@ -282,6 +283,7 @@ class JpaHintsConfig {
 4. **네이티브 SQL**:
    - 네이티브 SQL은 문제 없이 동작
    - 결과 매핑에 사용되는 클래스는 힌트 등록 필요
+     - `이럴거면 그냥 jdbcTemplate으로 쿼리 쓰는게 가장 효과적일지도`
    
    ```kotlin
    @Query(
@@ -1163,6 +1165,10 @@ management.metrics.tags.application=${spring.application.name}
 ```
 
 ### 성능 비교 결과 예시
+- ./gradlew clean nativeCompile  
+  - 5m 58s
+- ./gradlew bootBuildImage 
+  - 3m 38s
 
 | 측정 지표 | JVM 모드 | 네이티브 이미지 | 개선율 |
 |----------|---------|--------------|-------|

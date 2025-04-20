@@ -10,6 +10,12 @@
       "name":"java.lang.Exception"
     },
     {
+      "name":"java.lang.Long"
+    },
+    {
+      "name":"java.lang.Number"
+    },
+    {
       "name":"java.lang.StackTraceElement"
     },
     {
@@ -46,13 +52,28 @@
       "name":"java.rmi.server.UID"
     },
     {
+      "name":"java.util.ArrayList"
+    },
+    {
       "name":"java.util.Collections$EmptyList"
+    },
+    {
+      "name":"java.util.HashMap"
+    },
+    {
+      "name":"java.util.HashSet"
+    },
+    {
+      "name":"java.util.LinkedHashMap"
     },
     {
       "name":"javax.management.InstanceNotFoundException"
     },
     {
       "name":"javax.management.JMException"
+    },
+    {
+      "name":"javax.management.ObjectInstance"
     },
     {
       "name":"javax.management.ObjectName"

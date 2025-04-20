@@ -1,0 +1,62 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoint:
+    health:
+      show-details: always
+spring:
+  jpa:
+    properties:
+      hibernate:
+        generate_statistics: false
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+        bytecode:
+          provider: none
+          use_reflection_optimizer: false
+        proxy:
+          ProxyFactoryClass: org.hibernate.bytecode.internal.bytebuddy.ProxyFactoryFactoryImpl
+        jakarta:
+          persistence:
+            sharedCache:
+              mode: NONE
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    open-in-view: false
+  datasource:
+    hikari:
+      idle-timeout: 30000
+      maximum-pool-size: 5
+      connection-timeout: 20000
+      minimum-idle: 5
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: blogpass
+    username: bloguser
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/blogdb?useSSL=false&allowPublicKeyRetrieval=true}
+  application:
+    name: native-demo
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
+server:
+  port: 8080
+  compression:
+    enabled: true
+logging:
+  level:
+    root: INFO
+    com:
+      example: DEBUG
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n'
+application:
+  version: 1.0.0
+  name: demo
